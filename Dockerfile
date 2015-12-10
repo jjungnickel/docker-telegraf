@@ -6,8 +6,8 @@ ENV DEBIAN_FRONTEND noninteractive
 ENV KAPACITOR_VERSION 0.2.0-1
 
 RUN apt-get update && \
-	apt-get install -y wget && \
-	wget https://s3.amazonaws.com/influxdb/kapacitor_${KAPACITOR_VERSION}_amd64.deb && \
+	apt-get install -y curl && \
+	curl -O https://s3.amazonaws.com/influxdb/kapacitor_${KAPACITOR_VERSION}_amd64.deb && \
 	dpkg -i kapacitor_${KAPACITOR_VERSION}_amd64.deb && rm kapacitor_${KAPACITOR_VERSION}_amd64.deb && \
 	apt-get clean && \
 	rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
