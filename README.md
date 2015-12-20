@@ -12,5 +12,6 @@ docker run -t jbye/kapacitor
 
 ## Tags
 
-- 0.2.0-1
 - latest
+- 0.2.2
+- 0.2.0-1
