@@ -3,7 +3,7 @@ FROM debian:jessie
 ENV HOSTNAME localhost
 ENV INFLUXDB_URL http://localhost:8086
 ENV DEBIAN_FRONTEND noninteractive
-ENV KAPACITOR_VERSION 0.2.0-1
+ENV KAPACITOR_VERSION 0.2.2-1
 
 RUN apt-get update && \
 	apt-get install -y curl && \
