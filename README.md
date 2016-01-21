@@ -10,6 +10,9 @@ Docker Image for [InfluxData Telegraf](https://influxdata.com/time-series-platfo
 docker run -t jjungnickel/telegraf
 ```
 
+# Configuration (Environment Variables)
+- INFLUXDB_URL - Where is your InfluxDB running? (default: http://localhost:8086)
+
 ## Tags
 
 - latest
