@@ -5,13 +5,14 @@ ENV DEBIAN_FRONTEND noninteractive
 ENV TELEGRAF_VERSION 0.10.0-1
 
 RUN apt-get update && \
-	apt-get install -y curl && \
+	apt-get install -y curl python-pip && \
 	curl -O http://get.influxdb.org/telegraf/telegraf_${TELEGRAF_VERSION}_amd64.deb && \
 	dpkg -i telegraf_${TELEGRAF_VERSION}_amd64.deb && rm telegraf_${TELEGRAF_VERSION}_amd64.deb && \
+  pip install envtpl && \
 	apt-get clean && \
 	rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-COPY telegraf.conf /etc/telegraf/telegraf.conf
+COPY telegraf.conf.tpl /etc/telegraf/telegraf.conf.tpl
 COPY run.sh /run.sh
 RUN chmod +x /run.sh
 

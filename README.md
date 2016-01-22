@@ -6,12 +6,20 @@ Docker Image for [InfluxData Telegraf](https://influxdata.com/time-series-platfo
 
 ## Run
 
+Most basic form:
 ```
 docker run -t jjungnickel/telegraf
 ```
 
-# Configuration (Environment Variables)
-- INFLUXDB_URL - Where is your InfluxDB running? (default: http://localhost:8086)
+Custom InfluxDB location and additional tags:
+```
+docker run -t -e INFLUXDB_URL=http://influxdb:8086 -e TAG_datacenter=eu-central-1 -e TAG_type=core jjungnickel/telegraf
+```
+
+# Configuration (ENV, -e)
+- INFLUXDB_URL - Where is your InfluxDB running? (default: http://localhost:8086) Note: No trailing slash!
+- HOSTNAME - To pass in the docker host's actual hostname
+- TAG_<name> - Adds a tag with the given value to all measurements
 
 ## Tags
 

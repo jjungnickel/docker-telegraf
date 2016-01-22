@@ -22,6 +22,9 @@
 # Tags can also be specified via a normal map, but only one form at a time:
 [tags]
   # dc = "us-east-1"
+  {% for key, value in environment('TAG_') %}{{ key }}="{{ value }}"
+  {% endfor %}
+
 
 # Configuration for telegraf agent
 [agent]
@@ -42,7 +45,7 @@
   # Run telegraf in debug mode
   debug = false
   # Override default hostname, if empty use os.Hostname()
-  hostname = ""
+  hostname = "{{ HOSTNAME }}"
 
 
 ###############################################################################
@@ -55,7 +58,7 @@
   # Multiple urls can be specified but it is assumed that they are part of the same
   # cluster, this means that only ONE of the urls will be written to each interval.
   # urls = ["udp://localhost:8089"] # UDP endpoint example
-  urls = ["INFLUXDB_URL"] # required
+  urls = ["{{ INFLUXDB_URL }}"] # required
   # The target database for metrics (telegraf will create it if not exists)
   database = "telegraf" # required
   # Precision of writes, valid values are n, u, ms, s, m, and h
