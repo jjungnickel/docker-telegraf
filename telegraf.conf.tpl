@@ -104,19 +104,13 @@
   # Uncomment the following line if you do not need disk serial numbers.
   # SkipSerialNumber = true
 
-# Read metrics about memory usage
 [[inputs.mem]]
-  # no configuration
-
-# Read metrics about swap memory usage
 [[inputs.swap]]
-  # no configuration
-
-# Read metrics about system load & uptime
 [[inputs.system]]
-  # no configuration
-
-
-###############################################################################
-#                              SERVICE INPUTS                                 #
-###############################################################################
+[[inputs.docker]]
+  # Docker Endpoint
+  #   To use TCP, set endpoint = "tcp://[ip]:[port]"
+  #   To use environment variables (ie, docker-machine), set endpoint = "ENV"
+  endpoint = "unix:///var/run/docker.sock"
+  # Only collect metrics for these containers, collect all if empty
+  container_names = []

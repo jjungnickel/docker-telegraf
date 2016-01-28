@@ -6,14 +6,16 @@ Docker Image for [InfluxData Telegraf](https://influxdata.com/time-series-platfo
 
 ## Run
 
+You may need to replace the path to */var/run/docker.sock* depending on the location of your docker socket.
+
 Most basic form:
 ```
-docker run -t jjungnickel/telegraf
+docker run -t -v /var/run/docker.sock:/var/run/docker.sock jjungnickel/telegraf
 ```
 
 Custom InfluxDB location and additional tags:
 ```
-docker run -t -e INFLUXDB_URL=http://influxdb:8086 -e TAG_datacenter=eu-central-1 -e TAG_type=core jjungnickel/telegraf
+docker run -t -v /var/run/docker.sock:/var/run/docker.sock -e INFLUXDB_URL=http://influxdb:8086 -e TAG_datacenter=eu-central-1 -e TAG_type=core jjungnickel/telegraf
 ```
 
 # Configuration (ENV, -e)
