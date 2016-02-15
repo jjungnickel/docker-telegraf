@@ -2,7 +2,7 @@ FROM debian:jessie
 
 ENV INFLUXDB_URL http://localhost:8086
 ENV DEBIAN_FRONTEND noninteractive
-ENV TELEGRAF_VERSION 0.10.1-1
+ENV TELEGRAF_VERSION 0.10.2-1
 
 RUN apt-get update && \
 	apt-get install -y curl python-pip && \
