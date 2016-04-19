@@ -1,7 +1,5 @@
 # docker-telegraf
 
-[![Docker Hub](https://img.shields.io/badge/docker-ready-blue.svg)](https://registry.hub.docker.com/u/jjungnickel/telegraf/) [![Docker Pulls](https://img.shields.io/docker/pulls/jjungnickel/telegraf.svg)](https://registry.hub.docker.com/u/jjungnickel/telegraf/)
-
 Docker Image for [InfluxData Telegraf](https://influxdata.com/time-series-platform/telegraf/).
 
 ## Run
@@ -10,12 +8,12 @@ You may need to replace the path to */var/run/docker.sock* depending on the loca
 
 Most basic form:
 ```
-docker run -t -v /var/run/docker.sock:/var/run/docker.sock jjungnickel/telegraf
+docker run -t -v /var/run/docker.sock:/var/run/docker.sock appcelerator/telegraf
 ```
 
 Custom InfluxDB location and additional tags:
 ```
-docker run -t -v /var/run/docker.sock:/var/run/docker.sock -e INFLUXDB_URL=http://influxdb:8086 -e TAG_datacenter=eu-central-1 -e TAG_type=core jjungnickel/telegraf
+docker run -t -v /var/run/docker.sock:/var/run/docker.sock -e INFLUXDB_URL=http://influxdb:8086 -e TAG_datacenter=eu-central-1 -e TAG_type=core appcelerator/telegraf
 ```
 
 # Configuration (ENV, -e)
@@ -26,4 +24,3 @@ docker run -t -v /var/run/docker.sock:/var/run/docker.sock -e INFLUXDB_URL=http:
 ## Tags
 
 - latest
-- 0.10.0
