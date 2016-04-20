@@ -1,5 +1,7 @@
 # docker-telegraf
 
+[![Build Status](http://drone.amp.appcelerator.io:8000/api/badges/appcelerator/docker-telegraf/status.svg)](http://drone.amp.appcelerator.io:8000/appcelerator/docker-telegraf)
+
 Docker Image for [InfluxData Telegraf](https://influxdata.com/time-series-platform/telegraf/).
 
 ## Run
