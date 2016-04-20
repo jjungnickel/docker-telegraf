@@ -3,6 +3,7 @@ MAINTAINER Nicolas Degory <ndegory@axway.com>
 
 ENV TELEGRAF_VERSION 0.12.1
 ENV INFLUXDB_URL http://localhost:8086
+ENV INTERVAL 10s
 
 RUN apk --no-cache add python py-pip python-dev curl && \
     curl https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py | python && \
