@@ -1,7 +1,7 @@
 FROM alpine:3.3
 MAINTAINER Nicolas Degory <ndegory@axway.com>
 
-ENV TELEGRAF_VERSION 0.12.1
+ENV TELEGRAF_VERSION 0.12.0
 ENV INFLUXDB_URL http://localhost:8086
 ENV INTERVAL 10s
 
@@ -27,7 +27,7 @@ RUN export GOPATH=/go && \
 
 EXPOSE 8125/udp 8092/udp 8094
 
-COPY telegraf.conf.tpl /etc/telegraf/telegraf.conf.tpl
+COPY telegraf.conf.${TELEGRAF_VERSION}.tpl /etc/telegraf/telegraf.conf.tpl
 COPY run.sh /run.sh
 RUN chmod +x /run.sh
 
