@@ -25,7 +25,7 @@ RUN export GOPATH=/go && \
 
 EXPOSE 8125/udp 8092/udp 8094
 
-COPY telegraf.conf.${TELEGRAF_VERSION}.tpl /etc/telegraf/telegraf.conf.tpl
+COPY telegraf.conf.tpl /etc/telegraf/telegraf.conf.tpl
 COPY run.sh /run.sh
 RUN chmod +x /run.sh
 
