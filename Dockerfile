@@ -1,18 +1,16 @@
 FROM alpine:3.3
 MAINTAINER Nicolas Degory <ndegory@axway.com>
 
-ENV TELEGRAF_VERSION 0.12.0
-ENV INFLUXDB_URL http://localhost:8086
-ENV INTERVAL 10s
-
 RUN apk --no-cache add python py-pip python-dev curl && \
     curl https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py | python && \
     pip install envtpl && \
     apk del py-pip python-dev curl openssl ca-certificates libssh2 libbz2 expat libffi gdbm
 
+ENV TELEGRAF_VERSION 0.12.0
+ENV INFLUXDB_URL http://localhost:8086
+ENV INTERVAL 10s
 
 RUN export GOPATH=/go && \
-    #echo "http://dl-2.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories
     apk --no-cache add go git gcc musl-dev make && \
     go get github.com/influxdata/telegraf && \
     cd $GOPATH/src/github.com/influxdata/telegraf && \
