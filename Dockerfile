@@ -2,7 +2,7 @@ FROM alpine:3.3
 MAINTAINER Nicolas Degory <ndegory@axway.com>
 
 RUN apk --no-cache add python py-pip python-dev curl && \
-    curl https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py | python && \
+    curl https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py | python - --version=20.9.0 && \
     pip install envtpl && \
     apk del py-pip python-dev curl openssl ca-certificates libssh2 libbz2 expat libffi gdbm
 
@@ -30,3 +30,7 @@ COPY run.sh /run.sh
 RUN chmod +x /run.sh
 
 CMD [ "/run.sh" ]
+
+# will be updated whenever there's a new commit
+LABEL commit=${GIT_COMMIT}
+LABEL branch=${GIT_BRANCH}
