@@ -11,8 +11,7 @@ ENV TELEGRAF_VERSION 0.12.0
 ENV INFLUXDB_URL http://localhost:8086
 ENV INTERVAL 10s
 
-RUN apk --no-cache add go && \
-    apk --virtual build-deps add curl git gcc musl-dev make && \
+RUN apk --virtual build-deps add go curl git gcc musl-dev make && \
     export GOPATH=/go && \
     go get github.com/influxdata/telegraf && \
     cd $GOPATH/src/github.com/influxdata/telegraf && \
