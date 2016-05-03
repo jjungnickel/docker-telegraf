@@ -27,10 +27,10 @@
 # Configuration for telegraf agent
 [agent]
   ## Default data collection interval for all inputs
-  interval = "{{ INTERVAL }}"
+  interval = "{{ INTERVAL | default("10s") }}"
   ## Rounds collection interval to 'interval'
   ## ie, if interval="10s" then always collect on :00, :10, :20, etc.
-  round_interval = true
+  round_interval = {{ ROUND_INTERVAL | default("true") }}
 
   ## Telegraf will cache metric_buffer_limit metrics for each output, and will
   ## flush this buffer on a successful write.
@@ -42,15 +42,15 @@
   ## Each plugin will sleep for a random time within jitter before collecting.
   ## This can be used to avoid many plugins querying things like sysfs at the
   ## same time, which can have a measurable effect on the system.
-  collection_jitter = "0s"
+  collection_jitter = "{{ COLLECTION_JITTER | default("1s") }}"
 
   ## Default flushing interval for all outputs. You shouldn't set this below
   ## interval. Maximum flush_interval will be flush_interval + flush_jitter
-  flush_interval = "10s"
+  flush_interval = "{{ FLUSH_INTERVAL | default("10s") }}"
   ## Jitter the flush interval by a random amount. This is primarily to avoid
   ## large write spikes for users running a large number of telegraf instances.
   ## ie, a jitter of 5s and interval 10s means flushes will happen every 10-15s
-  flush_jitter = "0s"
+  flush_jitter = "{{ FLUSH_JITTER | default("3s") }}"
 
   ## Run telegraf in debug mode
   debug = false
@@ -84,6 +84,10 @@
   ## Write timeout (for the InfluxDB client), formatted as a string.
   ## If not provided, will default to 5s. 0s means no timeout (not recommended).
   timeout = "5s"
+  {% if INFLUXDB_USER is defined %}
+  username = "{{ INFLUXDB_USER }}"
+  password = "{{ INFLUXDB_PASS | default("metrics") }}"
+  {% endif %}
   # username = "telegraf"
   # password = "metricsmetricsmetricsmetrics"
   ## Set the user agent for HTTP POSTs (can be useful for log differentiation)
