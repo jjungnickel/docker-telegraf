@@ -7,7 +7,7 @@ RUN apk --no-cache add python && \
     pip install envtpl && \
     apk del envtpl-deps
 
-ENV TELEGRAF_VERSION 0.12.0
+ENV TELEGRAF_VERSION 0.12.1
 ENV INFLUXDB_URL http://localhost:8086
 ENV INTERVAL 10s
 
