@@ -67,6 +67,7 @@
 ###############################################################################
 
 # Configuration for influxdb server to send metrics to
+{% if OUTPUT_INFLUXDB_ENABLED == "true" %}
 [[outputs.influxdb]]
   ## The full HTTP or UDP endpoint URL for your InfluxDB instance.
   ## Multiple urls can be specified as part of the same cluster,
@@ -88,21 +89,78 @@
   username = "{{ INFLUXDB_USER }}"
   password = "{{ INFLUXDB_PASS | default("metrics") }}"
   {% endif %}
-  # username = "telegraf"
-  # password = "metricsmetricsmetricsmetrics"
   ## Set the user agent for HTTP POSTs (can be useful for log differentiation)
   # user_agent = "telegraf"
   ## Set UDP payload size, defaults to InfluxDB UDP Client default (512 bytes)
   # udp_payload = 512
+{% else %}
+# InfluxDB output is disabled
+{% endif %}
 
-# # Configuration for AWS CloudWatch output.
-# [[outputs.cloudwatch]]
-#   ## Amazon REGION
-#   region = 'us-east-1'
-#
-#   ## Namespace for the CloudWatch MetricDatums
-#   namespace = 'InfluxData/Telegraf'
+# Configuration for AWS CloudWatch output.
+{% if OUTPUT_CLOUDWATCH_ENABLED == "true" %}
+[[outputs.cloudwatch]]
+  ## Amazon REGION
+  region = '{{ CLOUDWATCH_REGION | default("us-east-1") }}'
 
+  ## Namespace for the CloudWatch MetricDatums
+  namespace = '{{ CLOUDWATCH_NAMESPACE | default("InfluxData/Telegraf") }}'
+{% else %}
+# Cloudwatch output is disabled
+{% endif %}
+
+# # Configuration for the Kafka server to send metrics to
+{% if OUTPUT_KAFKA_ENABLED == "true" %}
+[[outputs.kafka]]
+  ## URLs of kafka brokers
+  brokers = ["{{ KAFKA_BROKER_URL | default("localhost:9092") }}"]
+  ## Kafka topic for producer messages
+  topic = "{{ KAFKA_TOPIC | default("telegraf") }}"
+  ## Telegraf tag to use as a routing key
+  ##  ie, if this tag exists, it's value will be used as the routing key
+  routing_tag = "host"
+
+  ## CompressionCodec represents the various compression codecs recognized by
+  ## Kafka in messages.
+  ##  0 : No compression
+  ##  1 : Gzip compression
+  ##  2 : Snappy compression
+  compression_codec = 0
+
+  ##  RequiredAcks is used in Produce Requests to tell the broker how many
+  ##  replica acknowledgements it must see before responding
+  ##   0 : the producer never waits for an acknowledgement from the broker.
+  ##       This option provides the lowest latency but the weakest durability
+  ##       guarantees (some data will be lost when a server fails).
+  ##   1 : the producer gets an acknowledgement after the leader replica has
+  ##       received the data. This option provides better durability as the
+  ##       client waits until the server acknowledges the request as successful
+  ##       (only messages that were written to the now-dead leader but not yet
+  ##       replicated will be lost).
+  ##   -1: the producer gets an acknowledgement after all in-sync replicas have
+  ##       received the data. This option provides the best durability, we
+  ##       guarantee that no messages will be lost as long as at least one in
+  ##       sync replica remains.
+  required_acks = -1
+
+  ##  The total number of times to retry sending a message
+  max_retry = 3
+
+  ## Optional SSL Config
+  # ssl_ca = "/etc/telegraf/ca.pem"
+  # ssl_cert = "/etc/telegraf/cert.pem"
+  # ssl_key = "/etc/telegraf/key.pem"
+  ## Use SSL but skip chain & host verification
+  # insecure_skip_verify = false
+
+  ## Data format to output.
+  ## Each data format has it's own unique set of configuration options, read
+  ## more about them here:
+  ## https://github.com/influxdata/telegraf/blob/master/docs/DATA_FORMATS_OUTPUT.md
+  data_format = "{{ KAFKA_DATA_FORMAT | default("influx") }}"
+{% else %}
+# Kafka output is disabled
+{% endif %}
 ###############################################################################
 #                            INPUT PLUGINS                                    #
 ###############################################################################

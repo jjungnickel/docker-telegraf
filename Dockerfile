@@ -26,6 +26,10 @@ RUN apk --virtual build-deps add go curl git gcc musl-dev make && \
 
 EXPOSE 8125/udp 8092/udp 8094
 
+ENV OUTPUT_INFLUXDB_ENABLED     true
+ENV OUTPUT_CLOUDWATCH_ENABLED   false
+ENV OUTPUT_KAFKA_ENABLED        false
+
 COPY telegraf.conf.tpl /etc/telegraf/telegraf.conf.tpl
 COPY run.sh /run.sh
 RUN chmod +x /run.sh
