@@ -20,7 +20,7 @@ docker run -t -v /var/run/docker.sock:/var/run/docker.sock:ro -v /var/run/utmp:/
 
 Cloudwatch output:
 ```
-docker run -t -v /var/run/docker.sock:/var/run/docker.sock:ro -v /var/run/utmp:/var/run/utmp:ro -e OUTPUT_INFLUXDB_ENABLED=false -e OUTPUT_CLOUDWATCH_ENABLED=true -e CLOUDWATCH_REGION=eu-central-1 -e CLOUDWATCH_NAMESPACE=Telegraf -e TAG_datacenter=eu-central-1 -e TAG_type=core appcelerator/telegraf
+docker run -t -v /var/run/docker.sock:/var/run/docker.sock:ro -v /var/run/utmp:/var/run/utmp:ro -e OUTPUT_INFLUXDB_URL=http://influxdb:8086 -e TAG_datacenter=eu-central-1 -e TAG_type=core appcelerator/telegraf
 ```
 
 # Configuration (ENV, -e)
