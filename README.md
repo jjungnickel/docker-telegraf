@@ -37,6 +37,7 @@ docker run -t -v /var/run/docker.sock:/var/run/docker.sock:ro -v /var/run/utmp:/
 - KAFKA_BROKER_URL - Kafka broker URL, defaults to localhost:9092
 - KAFKA_TOPIC - Kafka topic, defaults to telegraf
 - KAFKA_DATA_FORMAT - Kafka data format, defaults to influx
+- CONSUL - Consul URL for container pilot, example: consul:8500, disabled by default
 
 ## Tags
 
