@@ -6,5 +6,4 @@ echo "Cloudwatch:   $OUTPUT_CLOUDWATCH_ENABLED"
 echo "Kafka:        $OUTPUT_KAFKA_ENABLED"
 envtpl /etc/telegraf/telegraf.conf.tpl
 
-exec /bin/telegraf -config /etc/telegraf/telegraf.conf
-
+/bin/telegraf -config /etc/telegraf/telegraf.conf
