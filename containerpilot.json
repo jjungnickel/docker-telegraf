@@ -1,0 +1,19 @@
+{
+  "consul": "[consul]",
+  "services": [
+    {
+      "name": "telegraf",
+      "port": 8086,
+      "health": "pidof telegraf",
+      "poll": 10,
+      "ttl": 30
+    }
+  ],
+  "backends": [
+    {
+      "name": "influxdb",
+      "poll": 10,
+      "onChange": "/stop.sh"
+    }
+  ]
+}
