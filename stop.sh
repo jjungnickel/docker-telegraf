@@ -13,5 +13,5 @@ do
 done
 if [ "$ready" == "0" ]; then
   echo "Dependencies are not still ready: Send SIGTERM (15) signal"
-  kill SIGTERM $(pidof node)
+  kill SIGTERM $(pidof telegraf)
 fi

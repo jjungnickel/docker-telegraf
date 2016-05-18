@@ -1,5 +1,10 @@
 {
   "consul": "[consul]",
+  "logging": {
+    "level": "[loglevel]",
+    "format": "text",
+    "output": "stdout"
+  },
   "services": [
     {
       "name": "telegraf",
