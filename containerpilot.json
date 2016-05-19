@@ -10,8 +10,8 @@
       "name": "telegraf",
       "port": 8086,
       "health": "pidof telegraf",
-      "poll": 10,
-      "ttl": 30
+      "poll": [poll],
+      "ttl": [ttl]
     }
   ],
   "backends": [
