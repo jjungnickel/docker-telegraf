@@ -1,4 +1,4 @@
-FROM appcelerator/alpine:3.3.1
+FROM appcelerator/alpine:3.3.2
 MAINTAINER Nicolas Degory <ndegory@axway.com>
 
 ENV TELEGRAF_VERSION 0.13.0
@@ -35,7 +35,7 @@ COPY run.sh /run.sh
 ENV CP_SERVICE_NAME=telegraf
 ENV CP_SERVICE_PORT=8094
 ENV CP_SERVICE_BIN=telegraf
-ENV CP_DEPENDENCIES='[{"name": "influxdb"}, {"name": "amp-log-agent"} ]'
+ENV CP_DEPENDENCIES='[{"name": "influxdb"}, {"name": "amp-log-agent", "onChange": "ignore"} ]'
 
 CMD ["/start.sh"]
 
