@@ -1,7 +1,7 @@
 FROM appcelerator/alpine:3.3.2
 MAINTAINER Nicolas Degory <ndegory@axway.com>
 
-ENV TELEGRAF_VERSION 0.13.0
+ENV TELEGRAF_VERSION 0.13.1
 
 RUN echo "http://nl.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories && \
     echo "http://nl.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories && \
