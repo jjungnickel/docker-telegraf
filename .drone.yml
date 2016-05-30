@@ -4,7 +4,7 @@ build:
     volumes:
     - /var/run/docker.sock:/var/run/docker.sock
     commands:
-    - docker login -u $DOCKER_HUB_LOGIN -p $DOCKER_HUB_PASSWORD -e $DOCKER_HUB_EMAIL $DOCKER_HUB_REGISTRY
+    - docker login -u "$DOCKER_HUB_LOGIN" -p "$DOCKER_HUB_PASSWORD" -e "$DOCKER_HUB_EMAIL" $DOCKER_HUB_REGISTRY
     - ./drone.sh
 
 debug: true
