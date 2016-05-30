@@ -26,6 +26,16 @@ ENV INTERVAL 10s
 ENV OUTPUT_INFLUXDB_ENABLED     true
 ENV OUTPUT_CLOUDWATCH_ENABLED   false
 ENV OUTPUT_KAFKA_ENABLED        false
+ENV INPUT_KAFKA_ENABLED         false
+ENV INPUT_CPU_ENABLED           false
+ENV INPUT_DISK_ENABLED          false
+ENV INPUT_DISKIO_ENABLED        false
+ENV INPUT_KERNEL_ENABLED        false
+ENV INPUT_MEM_ENABLED           false
+ENV INPUT_PROCESS_ENABLED       false
+ENV INPUT_SWAP_ENABLED          false
+ENV INPUT_SYSTEM_ENABLED        false
+ENV INPUT_DOCKER_ENABLED        true
 
 COPY telegraf.conf.tpl /etc/telegraf/telegraf.conf.tpl
 COPY run.sh /run.sh
