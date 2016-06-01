@@ -21,7 +21,7 @@ for k in $(seq 0 15); do
     output=$(curl "http://192.168.100.10:8086/query?q=SHOW+MEASUREMENTS&db=telegraf" 2>/dev/null || true)
     echo "Output: $output"
 
-    if [[ $(echo "$output" | jq .results[].error 2>/dev/null| grep 'database not found: telegraf' | wc -l) -eq 1 ]]; then
+    if [[ $(echo "$output" | jq '.results[].error' 2>/dev/null| grep 'database not found: telegraf' | wc -l) -eq 1 ]]; then
         echo "Waiting database creation..."
     else
         if [[ $(echo "$output" | jq '.results[].series[].values[][0]' 2>/dev/null | grep 'cpu' | wc -l) -gt 0 ]]; then

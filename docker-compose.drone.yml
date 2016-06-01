@@ -3,8 +3,10 @@ version: "2"
 services:
   # system under test
   sut:
-    build: .
-    command: "/drone_test.sh"
+    build:
+      context: .
+      dockerfile: Dockerfile-SUT
+    command: "/root/test/drone_test.sh"
     environment:
       DEBUG: app*
       AMP_SERVICE_URL: "http://amp-service:3000"
@@ -16,7 +18,6 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - ~/.ssh:/root/.ssh
       - ~/.git:/root/.git
-      - ./drone_run.sh:/drone_run.sh
     depends_on:
       - influxdb
       - telegraf
@@ -288,6 +289,7 @@ services:
 
   influxdb:
     image: appcelerator/influxdb:latest
+    container_name: "influxdb"
     ports:
       - "8086:8086"
       - "8083:8083"

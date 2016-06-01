@@ -1,0 +1,10 @@
+FROM appcelerator/docker-toolbox-node
+
+COPY test /root/test
+
+
+# node-inspector
+EXPOSE 8080
+
+# server app
+EXPOSE 3000
