@@ -1,13 +1,10 @@
 version: "2"
 
-
-
-
 services:
   # system under test
   sut:
     build: .
-    command: "echo Tutu"
+    command: "/drone_test.sh"
     environment:
       DEBUG: app*
       AMP_SERVICE_URL: "http://amp-service:3000"
@@ -19,6 +16,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - ~/.ssh:/root/.ssh
       - ~/.git:/root/.git
+      - ./drone_run.sh:/drone_run.sh
     depends_on:
       - influxdb
       - telegraf
@@ -274,6 +272,8 @@ services:
     environment:
       - CONSUL=consul:8500
       - INFLUXDB_URL=http://influxdb:8086
+      - INFLUXDB_TIMEOUT=20
+      - INPUT_CPU_ENABLED=true
       - TAG_datacenter=dc1
       - TAG_type=core
     logging:
