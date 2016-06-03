@@ -18,7 +18,7 @@ k=0
 isOk=false
 for k in $(seq 0 15); do
     echo -e "-- Check database #$k ---------------------------"
-    output=$(curl "http://192.168.100.10:8086/query?q=SHOW+MEASUREMENTS&db=telegraf" 2>/dev/null || true)
+    output=$(curl "http://influxdb:8086/query?q=SHOW+MEASUREMENTS&db=telegraf" 2>/dev/null || true)
     echo "Output: $output"
 
     if [[ $(echo "$output" | jq '.results[].error' 2>/dev/null| grep 'database not found: telegraf' | wc -l) -eq 1 ]]; then
@@ -41,7 +41,7 @@ else
     isOk=false
     for k in $(seq 0 10); do
         echo -e "-- Check metrics #$k ---------------------------"
-        output=$(curl "http://192.168.100.10:8086/query?q=select+*+from+cpu+limit+1&db=telegraf" 2>/dev/null || true)
+        output=$(curl "http://influxdb:8086/query?q=select+*+from+cpu+limit+1&db=telegraf" 2>/dev/null || true)
         echo "Output: $output"
 
         if [[ $(echo "$output" | jq '.results[].series[].columns[]' 2>/dev/null | grep 'time' | wc -l) -eq 1 ]]; then
