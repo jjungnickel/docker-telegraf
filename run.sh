@@ -17,6 +17,15 @@ echo "InfluxDB:       $OUTPUT_INFLUXDB_ENABLED"
 echo "Cloudwatch:     $OUTPUT_CLOUDWATCH_ENABLED"
 echo "Kafka:          $OUTPUT_KAFKA_ENABLED"
 
-envtpl /etc/telegraf/telegraf.conf.tpl
+if [[ -f /etc/telegraf/telegraf.conf.tpl ]] ; then
+    echo "Generating /etc/telegraf/telegraf.conf from template..."
+    envtpl /etc/telegraf/telegraf.conf.tpl
+else
+    if [[ -f /etc/telegraf/telegraf.conf ]] ; then
+        echo "/etc/telegraf/telegraf.conf already exists. Nothing to do."
+    else
+        echo "ERROR: No template or configuration file found: /etc/telegraf/telegraf.conf"
+    fi
+fi
 
 /bin/telegraf -config /etc/telegraf/telegraf.conf
