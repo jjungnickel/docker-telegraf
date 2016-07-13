@@ -44,7 +44,7 @@ ENV AMPPILOT_LAUNCH_CMD=/run.sh
 ENV DEPENDENCIES="influxdb, amp-log-agent"
 ENV AMPPILOT_AMPLOGAGENT_ONLYATSTARTUP=true
 
-ENTRYPOINT ["/run.sh"]
+ENTRYPOINT ["/amp-pilot"]
 
 LABEL axway_image=telegraf
 # will be updated whenever there's a new commit
