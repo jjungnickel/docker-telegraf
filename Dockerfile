@@ -1,11 +1,9 @@
-FROM appcelerator/alpine:3.3.2
+FROM appcelerator/amp:latest
 MAINTAINER Nicolas Degory <ndegory@axway.com>
 
 ENV TELEGRAF_VERSION 0.13.1
 
-RUN echo "http://nl.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories && \
-    echo "http://nl.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories && \
-    apk update && apk upgrade && \
+RUN apk update && apk upgrade && \
     apk --virtual build-deps add go>1.6 git gcc musl-dev make binutils && \
     export GOPATH=/go && \
     go get -v github.com/influxdata/telegraf && \
@@ -14,7 +12,6 @@ RUN echo "http://nl.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories &
     make && \
     chmod +x $GOPATH/bin/* && \
     mv $GOPATH/bin/* /bin/ && \
-    strip /bin/telegraf && \
     apk del build-deps && \
     cd / && rm -rf /var/cache/apk/* $GOPATH && \
     mkdir -p /etc/telegraf
@@ -40,14 +37,14 @@ ENV INPUT_DOCKER_ENABLED        true
 COPY telegraf.conf.tpl /etc/telegraf/telegraf.conf.tpl
 COPY run.sh /run.sh
 
-#ENV CONSUL=consul:8500
-# ContainerPilot scripts and configuration
-ENV CP_SERVICE_NAME=telegraf
-ENV CP_SERVICE_PORT=8094
-ENV CP_SERVICE_BIN=telegraf
-ENV CP_DEPENDENCIES='[{"name": "influxdb"}, {"name": "amp-log-agent", "onChange": "ignore"} ]'
+# amp-pilot scripts and configuration
+ENV SERVICE_NAME=telegraf
+ENV AMPPILOT_REGISTEREDPORT=8094
+ENV AMPPILOT_LAUNCH_CMD=/run.sh
+ENV DEPENDENCIES="influxdb, amp-log-agent"
+ENV AMPPILOT_AMPLOGAGENT_ONLYATSTARTUP=true
 
-CMD ["/start.sh"]
+ENTRYPOINT ["/run.sh"]
 
 LABEL axway_image=telegraf
 # will be updated whenever there's a new commit
