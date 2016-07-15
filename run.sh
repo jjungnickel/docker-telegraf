@@ -1,4 +1,6 @@
-#!/bin/sh
+#!/bin/bash
+
+PILOT="/bin/amp-pilot"
 
 echo "Configured inputs:"
 echo "Kafka:           $INPUT_KAFKA_ENABLED"
@@ -28,4 +30,13 @@ else
     fi
 fi
 
-/bin/telegraf -config /etc/telegraf/telegraf.conf
+CMD="/bin/telegraf"
+CMDARGS="-config /etc/telegraf/telegraf.conf"
+export AMP_LAUNCH_CMD="$CMD $CMDARGS"
+if [[ -n "$CONSUL" && -n "$PILOT" ]]; then
+    echo "registering in Consul with $PILOT"
+    exec "$PILOT" "$CMD" $CMDARGS
+else
+    echo "not registering in Consul"
+    exec "$CMD" $CMDARGS
+fi

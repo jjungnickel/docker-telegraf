@@ -40,11 +40,12 @@ COPY run.sh /run.sh
 # amp-pilot scripts and configuration
 ENV SERVICE_NAME=telegraf
 ENV AMPPILOT_REGISTEREDPORT=8094
-ENV AMPPILOT_LAUNCH_CMD=/run.sh
+ENV AMPPILOT_LAUNCH_CMD=/bin/telegraf
 ENV DEPENDENCIES="influxdb, amp-log-agent"
 ENV AMPPILOT_AMPLOGAGENT_ONLYATSTARTUP=true
 
-ENTRYPOINT ["/amp-pilot"]
+ENTRYPOINT ["/bin/sh", "-c"]
+CMD ["/run.sh"]
 
 LABEL axway_image=telegraf
 # will be updated whenever there's a new commit
